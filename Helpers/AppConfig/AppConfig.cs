@@ -1,4 +1,6 @@
-﻿namespace MyApi.Helpers
+﻿using MyApi.Helpers.File;
+
+namespace MyApi.Helpers.AppConfig
 {
     public class AppConfig
     {

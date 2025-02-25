@@ -1,6 +1,6 @@
-﻿using MyApi.Models.Results;
+﻿using MyApi.Models.Results.File;
 
-namespace MyApi.Services.Download
+namespace MyApi.Services.File
 {
     public partial class FileService
     {

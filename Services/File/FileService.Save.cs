@@ -1,6 +1,7 @@
-﻿using MyApi.Models.Results;
+﻿using MyApi.Models.Results.File;
+using SystemFile = System.IO.File;
 
-namespace MyApi.Services.Download
+namespace MyApi.Services.File
 {
     public partial class FileService
     {
@@ -8,14 +9,14 @@ namespace MyApi.Services.Download
         {
             try
             {
-                string saveFolderPath = GenerateSaveFolderPath();
+                string saveFolderPath = GenerateFilesFolderPath();
 
                 EnsureDirectoryExists(saveFolderPath);
 
                 string fileNameWithExtension = $"{fileName}{extension}";
                 string fullPath = Path.Combine(saveFolderPath, fileNameWithExtension);
 
-                await File.WriteAllBytesAsync(fullPath, file);
+                await SystemFile.WriteAllBytesAsync(fullPath, file);
 
                 return new FileSaveResult() 
                 {
@@ -42,14 +43,6 @@ namespace MyApi.Services.Download
                     Message = $"Unexpected error: {ex.Message}"
                 };
             }
-        }
-
-        private string GenerateSaveFolderPath()
-        {
-            string homePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);            
-            string saveFolderPath = Path.Combine(homePath, _saveFolder);
-
-            return saveFolderPath;
         }
 
         private void EnsureDirectoryExists(string path)

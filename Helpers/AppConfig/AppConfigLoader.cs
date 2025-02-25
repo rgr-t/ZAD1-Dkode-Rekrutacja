@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using MyApi.Helpers.File;
+using Newtonsoft.Json;
 
-namespace MyApi.Helpers
+namespace MyApi.Helpers.AppConfig
 {
     public class AppConfigLoader
     {
         public static FileUrlSettings LoadFileUrls()
-        {            
+        {
             return GetConfig().FileUrls;
         }
 
@@ -22,5 +23,5 @@ namespace MyApi.Helpers
 
             return config;
         }
-    }    
+    }
 }

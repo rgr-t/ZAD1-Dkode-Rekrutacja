@@ -1,4 +1,4 @@
-﻿namespace MyApi.Models.Results
+﻿namespace MyApi.Models.Results.File
 {
     public class FileSaveResult : Result
     {

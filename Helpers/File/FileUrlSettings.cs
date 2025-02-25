@@ -1,4 +1,4 @@
-﻿namespace MyApi.Helpers
+﻿namespace MyApi.Helpers.File
 {
     public class FileUrlSettings
     {

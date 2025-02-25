@@ -1,6 +1,6 @@
-﻿using MyApi.Helpers;
+﻿using MyApi.Helpers.AppConfig;
 
-namespace MyApi.Services.Download
+namespace MyApi.Services.File
 {
     public partial class FileService : IFileService
     {
