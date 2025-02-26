@@ -1,3 +1,6 @@
+using MyApi.Repositories.Database;
+using MyApi.Repositories.Products;
+using MyApi.Repositories.Stocks;
 using MyApi.Services.Csv;
 using MyApi.Services.File;
 using MyApi.Services.Warehouse;
@@ -11,6 +14,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IWarehouseService, WarehouseService>();
 builder.Services.AddScoped<ICsvMapperService, CsvMapperService>();
+builder.Services.AddScoped<IDatabaseService, DatabaseService>();
+builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+builder.Services.AddScoped<IStocksRepository, StocksRepository>();
 
 var app = builder.Build();
 

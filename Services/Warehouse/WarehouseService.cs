@@ -1,4 +1,6 @@
-﻿using MyApi.Services.Csv;
+﻿using MyApi.Repositories.Products;
+using MyApi.Repositories.Stocks;
+using MyApi.Services.Csv;
 using MyApi.Services.File;
 
 namespace MyApi.Services.Warehouse
@@ -7,11 +9,20 @@ namespace MyApi.Services.Warehouse
     {
         private readonly IFileService _fileService;
         private readonly ICsvMapperService _csvMapperService;
+        private readonly IProductsRepository _productsRepository;
+        private readonly IStocksRepository _stocksRepository;
 
-        public WarehouseService(IFileService fileService, ICsvMapperService csvMapperService)
+        public WarehouseService(
+            IFileService fileService,
+            ICsvMapperService csvMapperService,
+            IProductsRepository productsRepository,
+            IStocksRepository stocksRepository
+            )
         {
             _fileService = fileService;
             _csvMapperService = csvMapperService;
+            _productsRepository = productsRepository;
+            _stocksRepository = stocksRepository;
         }
     }
 }

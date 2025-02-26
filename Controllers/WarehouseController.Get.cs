@@ -9,7 +9,7 @@ namespace MyApi.Controllers
         {
             try
             {
-                var result = _warehouseService.Get();
+                var result = await _warehouseService.Get();
 
                 return Ok();
             }

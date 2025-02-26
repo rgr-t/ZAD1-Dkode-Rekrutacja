@@ -1,0 +1,58 @@
+﻿using Dapper;
+using MyApi.Models.Dto;
+using MyApi.Models.Results.Repository;
+using System.Data;
+
+namespace MyApi.Repositories.Stocks
+{
+    public partial class StocksRepository
+    {
+        public async Task<MergeResult> Merge(List<StockItemDto> stock)
+        {
+            var stockTable = new DataTable();
+                        
+            stockTable.Columns.Add("product_id", typeof(string));
+            stockTable.Columns.Add("sku", typeof(string));
+            stockTable.Columns.Add("unit", typeof(string));
+            stockTable.Columns.Add("quantity", typeof(decimal));
+            stockTable.Columns.Add("shipping", typeof(string));
+            stockTable.Columns.Add("shipping_cast", typeof(decimal));
+
+            foreach(var item in stock)
+            {
+                stockTable.Rows.Add
+                    (
+                        item.ProductId,
+                        item.Sku,
+                        item.Unit,
+                        item.Quantity,
+                        item.Shipping,
+                        item.ShippingCost
+                    );
+            }
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@stocksParamsTable", stockTable.AsTableValuedParameter("dbo.stock_table_type"));
+
+            try
+            {
+                var result = await _databaseService.QueryAsync<uint>("dbo.merge_stocks", parameters, CommandType.StoredProcedure);
+
+                return new MergeResult()
+                {
+                    Success = true,
+                    Message = result.FirstOrDefault() > 0 ? $"Successfully merged stocks table." : $"Data is up to date.",
+                    RowsAffected = result.FirstOrDefault()
+                };
+            }
+            catch(Exception ex)
+            {
+                return new MergeResult()
+                {
+                    Success = false,
+                    Message = $"Failed to merge stocks table. Error: {ex.Message}"
+                };
+            }
+        }
+    }
+}

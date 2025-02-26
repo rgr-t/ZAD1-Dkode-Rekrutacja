@@ -3,7 +3,7 @@ using MyApi.Models.Products;
 
 namespace MyApi.Helpers.Csv
 {
-    public class ProductsCSVMap : ClassMap<Products>
+    public class ProductsCSVMap : ClassMap<Product>
     {
         public ProductsCSVMap()
         {

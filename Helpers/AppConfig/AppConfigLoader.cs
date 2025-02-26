@@ -1,4 +1,5 @@
 ﻿using MyApi.Helpers.File;
+using SystemFile = System.IO.File;
 using Newtonsoft.Json;
 
 namespace MyApi.Helpers.AppConfig
@@ -18,7 +19,7 @@ namespace MyApi.Helpers.AppConfig
         private static AppConfig GetConfig()
         {
             var appsettingsFilePath = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
-            var json = File.ReadAllText(appsettingsFilePath);
+            var json = SystemFile.ReadAllText(appsettingsFilePath);
             var config = JsonConvert.DeserializeObject<AppConfig>(json);
 
             return config;

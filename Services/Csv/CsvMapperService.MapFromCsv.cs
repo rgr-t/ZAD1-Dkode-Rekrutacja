@@ -10,8 +10,7 @@ namespace MyApi.Services.Csv
         public async Task<CsvMappingResult<T>> MapFromCsv<T>(byte[] file, ClassMap<T> classMap, bool hasHeader, string separator, CultureInfo cultureInfo)
         {
             try
-            {
-                var x = CultureInfo.InvariantCulture;
+            {                
                 var csvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture)
                 {
                     Delimiter = separator,
@@ -27,11 +26,18 @@ namespace MyApi.Services.Csv
                 {
                     csv.Context.RegisterClassMap(classMap);
 
+                    var records = new List<T>();
+
+                    await foreach (var record in csv.GetRecordsAsync<T>())
+                    {
+                        records.Add(record);
+                    }
+
                     return new CsvMappingResult<T>()
                     {
                         Success = true,
                         Message = $"Successfully mapped csv file content to class of type {typeof(T).Name}",
-                        Data = csv.GetRecords<T>().ToList(),
+                        Data = records,
 
                     };                
                 }
