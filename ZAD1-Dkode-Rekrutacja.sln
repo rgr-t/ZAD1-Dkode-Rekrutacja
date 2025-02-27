@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApi", "MyApi.csproj", "{73A278B2-99CB-48E0-B9C4-DC065BBC3148}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MyDatabase", "..\MyDatabase\MyDatabase.sqlproj", "{27560B17-D1E2-481A-9FB4-B9D660DB878F}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MyDatabase", "MyDatabase\MyDatabase.sqlproj", "{27560B17-D1E2-481A-9FB4-B9D660DB878F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
