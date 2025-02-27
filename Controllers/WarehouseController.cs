@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyApi.Repositories.Warehouse;
 using MyApi.Services.Warehouse;
 
 namespace MyApi.Controllers
@@ -8,9 +9,12 @@ namespace MyApi.Controllers
     public partial class WarehouseController : Controller
     {
         private readonly IWarehouseService _warehouseService;
-        public WarehouseController(IWarehouseService warehouseService)
+        private readonly IWarehouseRepository _warehouseRepository;
+
+        public WarehouseController(IWarehouseService warehouseService, IWarehouseRepository warehouseRepository)
         {
             _warehouseService = warehouseService;
+            _warehouseRepository = warehouseRepository;
         }
     }
 }

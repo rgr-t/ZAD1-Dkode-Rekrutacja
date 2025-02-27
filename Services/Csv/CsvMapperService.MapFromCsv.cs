@@ -17,7 +17,12 @@ namespace MyApi.Services.Csv
                     MissingFieldFound = null,
                     HeaderValidated = null,
                     BadDataFound = null,
-                    HasHeaderRecord = hasHeader
+                    HasHeaderRecord = hasHeader,
+                    IgnoreBlankLines = true,
+                    ReadingExceptionOccurred = ex =>
+                    {                        
+                        return ex.Exception.Message.Contains("__empty_line__") ? false : true;
+                    }
                 };
 
                 using (var stream = new MemoryStream(file))  
