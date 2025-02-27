@@ -1,4 +1,5 @@
 using MyApi.Repositories.Database;
+using MyApi.Repositories.Prices;
 using MyApi.Repositories.Products;
 using MyApi.Repositories.Stocks;
 using MyApi.Services.Csv;
@@ -17,6 +18,7 @@ builder.Services.AddScoped<ICsvMapperService, CsvMapperService>();
 builder.Services.AddScoped<IDatabaseService, DatabaseService>();
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<IStocksRepository, StocksRepository>();
+builder.Services.AddScoped<IPricesRepository, PricesRepository>();
 
 var app = builder.Build();
 

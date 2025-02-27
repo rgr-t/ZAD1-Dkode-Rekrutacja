@@ -11,12 +11,13 @@ namespace MyApi.Repositories.Stocks
         {
             var stockTable = new DataTable();
                         
-            stockTable.Columns.Add("product_id", typeof(string));
+            stockTable.Columns.Add("product_id", typeof(int));
             stockTable.Columns.Add("sku", typeof(string));
             stockTable.Columns.Add("unit", typeof(string));
             stockTable.Columns.Add("quantity", typeof(decimal));
+            stockTable.Columns.Add("manufacturer_name", typeof(string));
             stockTable.Columns.Add("shipping", typeof(string));
-            stockTable.Columns.Add("shipping_cast", typeof(decimal));
+            stockTable.Columns.Add("shipping_cost", typeof(decimal));
 
             foreach(var item in stock)
             {
@@ -26,6 +27,7 @@ namespace MyApi.Repositories.Stocks
                         item.Sku,
                         item.Unit,
                         item.Quantity,
+                        item.ManufacturerName,
                         item.Shipping,
                         item.ShippingCost
                     );

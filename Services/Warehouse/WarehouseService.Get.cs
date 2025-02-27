@@ -3,6 +3,7 @@ using MyApi.Helpers.Csv;
 using MyApi.Helpers.Other;
 using MyApi.Models.Dto;
 using MyApi.Models.Inventory;
+using MyApi.Models.Prices;
 using MyApi.Models.Products;
 using MyApi.Models.Results;
 using System;
@@ -17,100 +18,157 @@ namespace MyApi.Services.Warehouse
             try
             {
                 var filesToDownload = AppConfigLoader.LoadFileUrls();
-                var productsFileDownloadResult = await _fileService.Download(filesToDownload.Products);
+                //var productsFileDownloadResult = await _fileService.Download(filesToDownload.Products);
 
-                if (productsFileDownloadResult.Success)
+                //if (productsFileDownloadResult.Success)
+                //{
+                //    var productsFileSaveResult = await _fileService.Save(
+                //        productsFileDownloadResult.File,
+                //        Constants.ProductsFileName,
+                //        Constants.ProductsFileExtension
+                //    );
+
+                //    if (productsFileSaveResult.Success)
+                //    {
+                //        var productsFileReadResult = await _fileService.Read(
+                //            Constants.ProductsFileName,
+                //            Constants.ProductsFileExtension
+                //        );
+
+                //        if (productsFileReadResult.Success)
+                //        {
+                //            var productsMappingResult = await _csvMapperService.MapFromCsv<Product>(productsFileReadResult.FileContent, new ProductsCSVMap(), true, ";", CultureInfo.InvariantCulture);
+
+                //            if (productsMappingResult.Success)
+                //            {
+
+                //                var productsDtoList = productsMappingResult.Data
+                //                    .Where(p => p.IsWire == false && p.Shipping == "24h")
+                //                    .Select(p => new ProductDto
+                //                    {
+                //                        Id = p.Id,
+                //                        Sku = p.Sku,
+                //                        Name = p.Name,
+                //                        Ean = p.Ean,
+                //                        ProducerName = p.ProducerName,
+                //                        MainCategory = p.Category?.Split('|').FirstOrDefault(),
+                //                        SubCategory = p.Category?.Split('|').ElementAtOrDefault(1),
+                //                        ChildCategory = p.Category?.Split('|').ElementAtOrDefault(2),
+                //                        Available = p.Available,
+                //                        IsVendor = p.IsVendor,
+                //                        DefaultImage = p.DefaultImage
+                //                    }).ToList();
+
+                //                var productsMergeResult = await _productsRepository.Merge(productsDtoList);
+
+                //                if (productsMergeResult.Success)
+                //                {
+                //                    var inventoryFileDownloadResult = await _fileService.Download(filesToDownload.Inventory);
+
+                //                    if (inventoryFileDownloadResult.Success)
+                //                    {
+                //                        var inventoryFileSaveResult = await _fileService.Save(
+                //                            inventoryFileDownloadResult.File,
+                //                            Constants.InventoryFileName,
+                //                            Constants.InventoryFileExtension
+                //                            );
+
+                //                        if (inventoryFileSaveResult.Success)
+                //                        {
+                //                            var inventoryFileReadResult = await _fileService.Read(Constants.InventoryFileName, Constants.InventoryFileExtension);
+
+                //                            if (inventoryFileReadResult.Success)
+                //                            {
+                //                                var inventoryFileMappingResult = await _csvMapperService.MapFromCsv<Inventory>(inventoryFileReadResult.FileContent, new InventoryCSVMap(), true, ",", CultureInfo.InvariantCulture);
+
+                //                                if (inventoryFileMappingResult.Success)
+                //                                {
+                //                                    var stockItemsDtoList = inventoryFileMappingResult.Data
+                //                                        .Where(i => i.Shipping == "24h")
+                //                                        .ToList()
+                //                                        .Select(s => new StockItemDto
+                //                                        {
+                //                                            ProductId = s.ProductId,
+                //                                            Sku = s.Sku,
+                //                                            Unit = s.Unit,
+                //                                            Quantity = TryParseDecimal(s.Quantity),
+                //                                            ManufacturerName = s.ManufacturerName,
+                //                                            Shipping = s.Shipping,
+                //                                            ShippingCost = TryParseDecimal(s.ShippingCost)
+                //                                        }).ToList();
+
+                //                                    var stockMergeResult = await _stocksRepository.Merge(stockItemsDtoList);
+
+                //                                    if (stockMergeResult.Success)
+                //                                    {
+                //                                        var pricesFileDownloadResult = await _fileService.Download(filesToDownload.Prices);
+
+                //                                        if (pricesFileDownloadResult.Success)
+                //                                        {
+                //                                            var pricesFileSaveResult = await _fileService.Save(
+                //                                                productsFileDownloadResult.File,
+                //                                                Constants.PricesFileName,
+                //                                                Constants.PricesFileExtension
+                //                                            );
+
+                //                                            if (pricesFileSaveResult.Success)
+                //                                            {
+                //                                                var pricesFileReadResult = await _fileService.Read(Constants.PricesFileName, Constants.PricesFileExtension);
+
+                //                                                if (pricesFileReadResult.Success)
+                //                                                {
+                //                                                    var pricesFileMappingResult = await _csvMapperService.MapFromCsv<Price>(pricesFileReadResult.FileContent, new PricesCSVMap(), false, ",", CultureInfo.InvariantCulture);
+                //                                                }
+                //                                            }
+                //                                        }
+                //                                    }
+                //                                }
+                //                            }
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+                var pricesFileDownloadResult = await _fileService.Download(filesToDownload.Prices);
+
+                if (pricesFileDownloadResult.Success)
                 {
-                    var productsFileSaveResult = await _fileService.Save(
-                        productsFileDownloadResult.File,
-                        Constants.ProductsFileName,
-                        Constants.ProductsFileExtension
+                    var pricesFileSaveResult = await _fileService.Save(
+                        pricesFileDownloadResult.File,
+                        Constants.PricesFileName,
+                        Constants.PricesFileExtension
                     );
 
-                    if (productsFileSaveResult.Success)
+                    if (pricesFileSaveResult.Success)
                     {
-                        var productsFileReadResult = await _fileService.Read(
-                            Constants.ProductsFileName,
-                            Constants.ProductsFileExtension
-                        );
+                        var pricesFileReadResult = await _fileService.Read(Constants.PricesFileName, Constants.PricesFileExtension);
 
-                        if (productsFileReadResult.Success)
+                        if (pricesFileReadResult.Success)
                         {
-                            var productsMappingResult = await _csvMapperService.MapFromCsv<Product>(productsFileReadResult.FileContent, new ProductsCSVMap(), true, ";", CultureInfo.InvariantCulture);
+                            var pricesFileMappingResult = await _csvMapperService.MapFromCsv<Price>(pricesFileReadResult.FileContent, new PricesCSVMap(), false, ",", new CultureInfo("pl-PL"));
 
-                            if (productsMappingResult.Success)
+                            if (pricesFileMappingResult.Success)
                             {
-
-                                var productsDtoList = productsMappingResult.Data
-                                    .Where(p => p.IsWire == false && p.Shipping == "24h")
-                                    .Select(p => new ProductDto
+                                var pricesDtoList = pricesFileMappingResult.Data                                    
+                                    .ToList()
+                                    .Select(p => new PricesDto
                                     {
-                                        Id = p.Id,
+                                        UniqueId = p.UniqueId,
                                         Sku = p.Sku,
-                                        Name = p.Name,
-                                        Ean = p.Ean,
-                                        ProducerName = p.ProducerName,
-                                        MainCategory = p.Category?.Split('|').FirstOrDefault(),
-                                        SubCategory = p.Category?.Split('|').ElementAtOrDefault(1),
-                                        ChildCategory = p.Category?.Split('|').ElementAtOrDefault(2),
-                                        Available = p.Available,
-                                        IsVendor = p.IsVendor,
-                                        DefaultImage = p.DefaultImage
+                                        PriceValue = p.PriceValue,
+                                        PriceValueAfterDiscount = p.PriceValueAfterDiscount,
+                                        Vat = p.Vat,
+                                        PriceAfterDiscountForProductLogisticUnit = p.PriceAfterDiscountForProductLogisticUnit
                                     }).ToList();
 
-                                var productsMergeResult = await _productsRepository.Merge(productsDtoList);
+                                var MergeResult = await _pricesRepository.Merge(pricesDtoList);
 
-                                if (productsMergeResult.Success)
-                                {
-                                    var inventoryFileDownloadResult = await _fileService.Download(filesToDownload.Inventory);
-
-                                    if (inventoryFileDownloadResult.Success)
-                                    {
-                                        var inventoryFileSaveResult = await _fileService.Save(
-                                            inventoryFileDownloadResult.File,
-                                            Constants.InventoryFileName,
-                                            Constants.InventoryFileExtension
-                                            );
-
-                                        if (inventoryFileSaveResult.Success)
-                                        {
-                                            var inventoryFileReadResult = await _fileService.Read(Constants.InventoryFileName, Constants.InventoryFileExtension);
-
-                                            if (inventoryFileReadResult.Success)
-                                            {
-                                                var inventoryFileMappingResult = await _csvMapperService.MapFromCsv<Inventory>(inventoryFileReadResult.FileContent, new InventoryCSVMap(), true, ",", CultureInfo.InvariantCulture);
-
-                                                if (inventoryFileMappingResult.Success)
-                                                {
-                                                    var stockItemsDtoList = inventoryFileMappingResult.Data
-                                                        .Where(i => i.Shipping == "24h")
-                                                        .ToList()
-                                                        .Select(s => new StockItemDto
-                                                        {
-                                                            ProductId = s.ProductId,
-                                                            Sku = s.Sku,
-                                                            Unit = s.Unit,
-                                                            Quantity = TryParseDecimal(s.Quantity),
-                                                            ManufacturerName = s.ManufacturerName,
-                                                            Shipping = s.Shipping,
-                                                            ShippingCost = TryParseDecimal(s.ShippingCost)
-                                                        }).ToList();
-
-                                                    var stockMergeResult = _stocksRepository.Merge(stockItemsDtoList);
-                                                    var x = 1;
-                                                }
-
-
-                                            }
-
-                                        }
-                                    }
-                                }
                             }
                         }
                     }
                 }
-
             }
             catch(Exception ex)
             {

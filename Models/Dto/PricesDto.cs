@@ -1,6 +1,6 @@
-﻿namespace MyApi.Models.Prices
+﻿namespace MyApi.Models.Dto
 {
-    public class Price
+    public class PricesDto
     {
         public string UniqueId { get; set; }
         public string Sku { get; set; }
