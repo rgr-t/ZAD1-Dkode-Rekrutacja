@@ -7,6 +7,7 @@ namespace MyApi.Services.Csv
 {
     public partial class CsvMapperService
     {
+        //Csv file mapping method, using byte array with csv content and csv helper classMap to chose class type.         
         public async Task<CsvMappingResult<T>> MapFromCsv<T>(byte[] file, ClassMap<T> classMap, bool hasHeader, string separator)
         {
             if (file == null || file.Length == 0)
@@ -19,7 +20,8 @@ namespace MyApi.Services.Csv
             }
 
             try
-            {                
+            {   
+                //Main configuration before mapping, contains parameters that makes mapping more flexible (ex. skip empty rows etc.)
                 var csvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture)
                 {
                     Delimiter = separator,
@@ -38,6 +40,7 @@ namespace MyApi.Services.Csv
                 using (var reader = new StreamReader(stream))
                 using (var csv = new CsvReader(reader, csvConfiguration))
                 {
+                    //Here csv helper uses classMap param to decide what type should be output after mapping.
                     csv.Context.RegisterClassMap(classMap);
 
                     var records = new List<T>();

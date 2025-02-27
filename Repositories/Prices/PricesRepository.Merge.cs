@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using MyApi.Models.Dto;
-using MyApi.Models.Products;
 using MyApi.Models.Results.Repository;
 using System.Data;
 
@@ -8,6 +7,7 @@ namespace MyApi.Repositories.Prices
 {
     public partial class PricesRepository
     {
+        //Merging prices dto list with dbo.products table.
         public async Task<MergeResult> Merge(List<PricesDto> prices)
         {
             if (prices == null || !prices.Any())

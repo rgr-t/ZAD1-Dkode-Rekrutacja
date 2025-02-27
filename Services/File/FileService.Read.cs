@@ -5,6 +5,7 @@ namespace MyApi.Services.File
 {
     public partial class FileService
     {
+        //File read method, using filename and extension.
         public async Task<FileReadResult> Read(string fileName, string extension)
         {
             var filesPath = GenerateFilesFolderPath();

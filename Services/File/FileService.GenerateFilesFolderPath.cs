@@ -2,6 +2,7 @@
 {
     public partial class FileService
     {
+        //Generating neutral file path that in user environment folder.
         public string GenerateFilesFolderPath()
         {
             string homePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

@@ -6,6 +6,7 @@ using System.Globalization;
 
 namespace MyApi.Helpers.Other
 {
+    //Class with helper methods to map csv data objects into dto without unused data.
     public static class DtoMapperHelper
     {
         public static ProductDto MapProduct(Product p) => new ProductDto

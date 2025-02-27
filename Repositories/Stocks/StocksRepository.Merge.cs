@@ -7,6 +7,7 @@ namespace MyApi.Repositories.Stocks
 {
     public partial class StocksRepository
     {
+        //Merging stocks dto list with dbo.products table.
         public async Task<MergeResult> Merge(List<StockItemDto> stock)
         {
             if (stock == null || !stock.Any())

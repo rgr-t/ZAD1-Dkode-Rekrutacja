@@ -4,7 +4,6 @@ namespace MyApi.Repositories.Database
 {
     public interface IDatabaseService
     {        
-        Task<IEnumerable<T>> QueryAsync<T>(string sql, object parameters = null, CommandType commandType = CommandType.Text);
-        Task ExecuteAsync(string sql, object parameters = null, CommandType commandType = CommandType.Text);
+        Task<IEnumerable<T>> QueryAsync<T>(string sql, object parameters = null, CommandType commandType = CommandType.Text);        
     }
 }

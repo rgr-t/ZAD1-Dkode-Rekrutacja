@@ -4,6 +4,7 @@ namespace MyApi.Services.File
 {
     public partial class FileService
     {
+        //File download method using url.
         public async Task<FileDownloadResult> Download(string url)
         {
             using (HttpClient httpClient = new HttpClient())

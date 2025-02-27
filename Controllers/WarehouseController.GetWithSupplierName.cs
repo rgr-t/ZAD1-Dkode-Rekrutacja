@@ -5,6 +5,7 @@ namespace MyApi.Controllers
 {
     public partial class WarehouseController
     {
+        //Gets desired data using supplier name
         [HttpGet("get/{supplierName}")]
         public async Task<IActionResult> GetWithSupplierName([FromRoute] string supplierName)
         {

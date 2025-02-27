@@ -5,6 +5,7 @@ namespace MyApi.Controllers
 {
     public partial class WarehouseController
     {
+        // Gets warehouse data files, process them and save into database.
         [HttpGet("get")]
         public async Task<IActionResult> Get()
         {

@@ -5,6 +5,7 @@ namespace MyApi.Services.File
 {
     public partial class FileService
     {
+        //File saving method, using file content byte array, filename and it's extension.
         public async Task<FileSaveResult> Save(byte[] file, string fileName, string extension)
         {
             if (file == null || file.Length == 0)

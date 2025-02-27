@@ -6,6 +6,7 @@ namespace MyApi.Repositories.Warehouse
 {
     public partial class WarehouseRepository
     {
+        //Database get method returning list of supplier data found using supplier name.
         public async Task<GetResult<SupplierDataDto>> GetWithSupplierName<SupplierDataDto>(string supplierName)
         {
             var parameters = new DynamicParameters();

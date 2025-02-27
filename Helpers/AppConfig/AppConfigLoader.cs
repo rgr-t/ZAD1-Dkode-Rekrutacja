@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace MyApi.Helpers.AppConfig
 {
+    //Helper class with app settings configuration get methods.
     public class AppConfigLoader
     {
         public static FileUrlSettings LoadFileUrls()

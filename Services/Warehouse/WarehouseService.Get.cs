@@ -5,12 +5,15 @@ namespace MyApi.Services.Warehouse
 {
     public partial class WarehouseService
     {
+        // Download, save and read files, process files content, save content into database.
         public async Task<Result> Get()
         {
             try
             {
                 var filesToDownload = AppConfigLoader.LoadFileUrls();
-                
+
+                // Transaction handling could be applied here.
+
                 var productsResult = await ProcessProducts(filesToDownload.Products);
 
                 if (!productsResult.Success)
