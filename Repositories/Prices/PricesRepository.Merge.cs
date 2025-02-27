@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MyApi.Models.Dto;
+using MyApi.Models.Products;
 using MyApi.Models.Results.Repository;
 using System.Data;
 
@@ -9,11 +10,12 @@ namespace MyApi.Repositories.Prices
     {
         public async Task<MergeResult> Merge(List<PricesDto> prices)
         {
-            var pricesTable = new DataTable();
+            if (prices == null || !prices.Any())
+                return new MergeResult() { Success = false, Message = $"Error before merging prices table, list was null or empty" };
 
-            pricesTable.Columns.Add("internal_id", typeof(string));
-            pricesTable.Columns.Add("sku", typeof(string));
-            pricesTable.Columns.Add("price", typeof(decimal));
+            var pricesTable = new DataTable();
+                        
+            pricesTable.Columns.Add("sku", typeof(string));            
             pricesTable.Columns.Add("price_after_discount", typeof(decimal));
             pricesTable.Columns.Add("vat", typeof(int));
             pricesTable.Columns.Add("price_after_discount_for_product_logistic_unit", typeof(decimal));         
@@ -21,11 +23,9 @@ namespace MyApi.Repositories.Prices
             foreach(var price in prices)
             {
                 pricesTable.Rows.Add
-                    (
-                        price.UniqueId,
-                        price.Sku,
-                        price.PriceValue,
-                        price.PriceValueAfterDiscount,
+                    (                        
+                        price.Sku,                        
+                        price.PriceAfterDiscount,
                         price.Vat,
                         price.PriceAfterDiscountForProductLogisticUnit
                     );

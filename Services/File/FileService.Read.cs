@@ -8,7 +8,7 @@ namespace MyApi.Services.File
         public async Task<FileReadResult> Read(string fileName, string extension)
         {
             var filesPath = GenerateFilesFolderPath();
-            var fullFilePath = $"{filesPath}\\{fileName}{extension}";
+            var fullFilePath = Path.Combine(filesPath, $"{fileName}{extension}");
 
             if (!SystemFile.Exists(fullFilePath))
             {
@@ -23,12 +23,12 @@ namespace MyApi.Services.File
             {
                 var fileContent = await SystemFile.ReadAllBytesAsync(fullFilePath);
 
-                if (fileContent == null || fileContent.Length == 0)
+                if (fileContent.Length == 0)
                 {
                     return new FileReadResult()
                     {
                         Success = false,
-                        Message = $"File {fileName}{extension} in {filesPath} is empty."
+                        Message = $"File {fileName}{extension} in {filesPath} exists but it's empty."
                     };
                 }
 
@@ -47,7 +47,7 @@ namespace MyApi.Services.File
                 return new FileReadResult()
                 {
                     Success = false,
-                    Message = $"Failed to read {fileName}{extension} in {filesPath}. Error: {ex.Message}"
+                    Message = $"Error reading file {fileName}{extension} in {filesPath}. Error: {ex.Message}"
                 };
             }
         }

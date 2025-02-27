@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace MyApi.Controllers
 {
@@ -11,11 +12,14 @@ namespace MyApi.Controllers
             {
                 var result = await _warehouseService.Get();
 
-                return Ok();
+                if (!result.Success)                
+                    return BadRequest(new { result.Message });                
+
+                return Ok(result.Message);
             }
-            catch(Exception ex)
-            {
-                return Ok(ex);
+            catch (Exception ex)
+            {                
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Message = "An unexpected error occurred", Details = ex.Message });
             }
         }
     }

@@ -13,20 +13,19 @@ namespace MyApi.Services.File
                     byte[]? file = await httpClient.GetByteArrayAsync(url);
 
                     if (file != null && file.Length > 0)
-                        return new FileDownloadResult() { Success = true, Message = "Successfuly downloaded file from url: \"{url}\"", File = file, FileSize = file.Length };
+                        return new FileDownloadResult() { Success = true, Message = $"Successfuly downloaded file from url: \"{url}\".", File = file, FileSize = file.Length };
                 }  
                 catch(HttpRequestException ex)
                 {
-
-                    // log
+                    return new FileDownloadResult() { Success = false, Message = $"Http request error, {ex.Message}" };
                 }
                 catch(Exception ex)
                 {
-                    // log
-                };                
-            }
+                    return new FileDownloadResult() { Success = false, Message = $"Unexpected error: {ex.Message}" };
+                }
 
-            return new FileDownloadResult() { Success = false, Message = $"Failed to download file from url: \"{url}\"" };
+                return new FileDownloadResult() { Success = false, Message = $"Failed to download file from url: \"{url}\". " };
+            }
         }
     }
 }

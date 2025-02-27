@@ -12,15 +12,10 @@ namespace MyApi.Helpers.Other
         {
             Id = p.Id,
             Sku = p.Sku,
-            Name = p.Name,
-            Ean = p.Ean,
             ProducerName = p.ProducerName,
             MainCategory = p.Category?.Split('|').FirstOrDefault(),
-            SubCategory = p.Category?.Split('|').ElementAtOrDefault(1),
-            ChildCategory = p.Category?.Split('|').ElementAtOrDefault(2),
-            Available = p.Available,
-            IsVendor = p.IsVendor,
-            DefaultImage = p.DefaultImage
+            SubCategory = p.Category?.Split('|').ElementAtOrDefault(1), 
+            IsVendor = p.IsVendor            
         };
 
         public static StockItemDto MapStockItem(Inventory s) => new StockItemDto
@@ -35,11 +30,9 @@ namespace MyApi.Helpers.Other
         };
 
         public static PricesDto MapPrice(Price p) => new PricesDto
-        {
-            UniqueId = p.UniqueId,
-            Sku = p.Sku,
-            PriceValue = p.PriceValue,
-            PriceValueAfterDiscount = p.PriceValueAfterDiscount,
+        {            
+            Sku = p.Sku,            
+            PriceAfterDiscount = p.PriceValueAfterDiscount,
             Vat = p.Vat,
             PriceAfterDiscountForProductLogisticUnit = p.PriceAfterDiscountForProductLogisticUnit
         };

@@ -7,11 +7,18 @@ namespace MyApi.Services.File
     {
         public async Task<FileSaveResult> Save(byte[] file, string fileName, string extension)
         {
+            if (file == null || file.Length == 0)
+                return new FileSaveResult()
+                {
+                    Success = false,
+                    Message = $"Failed to save file, it was null or empty."
+                };
+
             try
             {
                 string saveFolderPath = GenerateFilesFolderPath();
 
-                EnsureDirectoryExists(saveFolderPath);
+                Directory.CreateDirectory(saveFolderPath);
 
                 string fileNameWithExtension = $"{fileName}{extension}";
                 string fullPath = Path.Combine(saveFolderPath, fileNameWithExtension);
@@ -21,8 +28,8 @@ namespace MyApi.Services.File
                 return new FileSaveResult() 
                 {
                     Success = true,
-                    Message = $"Successfuly saved file.",
-                    FilePath = saveFolderPath,
+                    Message = $"Successfuly saved file to {fullPath}",
+                    FilePath = fullPath,
                     FileName = fileName,
                     FileExtension = extension
                 };
@@ -43,12 +50,6 @@ namespace MyApi.Services.File
                     Message = $"Unexpected error: {ex.Message}"
                 };
             }
-        }
-
-        private void EnsureDirectoryExists(string path)
-        {
-            if (!Directory.Exists(path))            
-                Directory.CreateDirectory(path);            
         }
     }
 }

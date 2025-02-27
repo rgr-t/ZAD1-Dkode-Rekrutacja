@@ -9,19 +9,17 @@ namespace MyApi.Repositories.Products
     {
         public async Task<MergeResult> Merge(List<ProductDto> products)
         {
+            if (products == null || !products.Any())
+                return new MergeResult() { Success = false, Message = $"Error before merging products table, list was null or empty" };
+
             var productsTable = new DataTable();
 
             productsTable.Columns.Add("id", typeof(int));
             productsTable.Columns.Add("sku", typeof(string));
-            productsTable.Columns.Add("name", typeof(string));
-            productsTable.Columns.Add("ean", typeof(string));
             productsTable.Columns.Add("producer_name", typeof(string));
             productsTable.Columns.Add("main_category", typeof(string));
             productsTable.Columns.Add("sub_category", typeof(string));
-            productsTable.Columns.Add("child_category", typeof(string));
-            productsTable.Columns.Add("available", typeof(bool));
-            productsTable.Columns.Add("is_vendor", typeof(bool));
-            productsTable.Columns.Add("default_image", typeof(string));
+            productsTable.Columns.Add("is_vendor", typeof(bool));            
 
             foreach(var product in products)
             {
@@ -29,15 +27,10 @@ namespace MyApi.Repositories.Products
                     (
                         product.Id,
                         product.Sku,
-                        product.Name,
-                        product.Ean,
                         product.ProducerName,
                         product.MainCategory,
                         product.SubCategory,
-                        product.ChildCategory,
-                        product.Available,
-                        product.IsVendor,
-                        product.DefaultImage
+                        product.IsVendor                        
                     );
             }
 

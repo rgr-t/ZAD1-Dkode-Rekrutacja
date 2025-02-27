@@ -9,6 +9,9 @@ namespace MyApi.Repositories.Stocks
     {
         public async Task<MergeResult> Merge(List<StockItemDto> stock)
         {
+            if (stock == null || !stock.Any())
+                return new MergeResult() { Success = false, Message = $"Error before merging stock table, list was null or empty" };
+
             var stockTable = new DataTable();
                         
             stockTable.Columns.Add("product_id", typeof(int));

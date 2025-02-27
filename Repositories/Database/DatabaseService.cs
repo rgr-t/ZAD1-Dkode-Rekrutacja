@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using MyApi.Helpers.Other;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -15,7 +16,7 @@ namespace MyApi.Repositories.Database
 
         private SqlConnection GetDatabaseConnection()
         {
-            string databaseConnectionString = _configuration.GetConnectionString("MyDatabase");
+            string databaseConnectionString = _configuration.GetConnectionString(Constants.ConnectionStringDatabaseName);
 
             return new SqlConnection(databaseConnectionString);
         }

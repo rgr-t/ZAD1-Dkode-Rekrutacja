@@ -10,5 +10,7 @@
 
         public const string PricesFileName = "Prices";
         public const string PricesFileExtension = ".csv";
+
+        public const string ConnectionStringDatabaseName = "MyDatabase";
     }
 }

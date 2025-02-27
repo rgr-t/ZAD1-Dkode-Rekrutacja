@@ -7,8 +7,17 @@ namespace MyApi.Services.Csv
 {
     public partial class CsvMapperService
     {
-        public async Task<CsvMappingResult<T>> MapFromCsv<T>(byte[] file, ClassMap<T> classMap, bool hasHeader, string separator, CultureInfo cultureInfo)
+        public async Task<CsvMappingResult<T>> MapFromCsv<T>(byte[] file, ClassMap<T> classMap, bool hasHeader, string separator)
         {
+            if (file == null || file.Length == 0)
+            {
+                return new CsvMappingResult<T>()
+                {
+                    Success = false,
+                    Message = $"Error before mapping csv file to {classMap.GetType().Name} class, file content was null or empty"
+                };
+            }
+
             try
             {                
                 var csvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture)
