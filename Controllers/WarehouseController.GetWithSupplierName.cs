@@ -13,11 +13,14 @@ namespace MyApi.Controllers
             {
                 var result = await _warehouseRepository.GetWithSupplierName<SupplierDataDto>(supplierName);
 
+                if (!result.Success)
+                    return BadRequest($"{result.Message}");
+
                 return Ok(result.Data);
             }
             catch(Exception ex)
             {
-                return Ok();
+                return BadRequest($"Unexpected error: {ex.Message}");
             }
         }
     }
